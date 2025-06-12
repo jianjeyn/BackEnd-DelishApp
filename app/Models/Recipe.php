@@ -22,23 +22,31 @@ class Recipe extends Model
         'jenis_hidangan',
         'estimasi_waktu',
         'tingkat_kesulitan',
+        'user_id', // Foreign key untuk relasi dengan User
     ];
+
 
     // Relasi: Satu resep punya banyak langkah (steps)
     public function steps()
     {
-        return $this->hasMany(Step::class, 'fk_resep');
+        return $this->hasMany(Step::class, 'resep_id');
     }
 
     // Relasi: Satu resep punya banyak review
     public function reviews()
     {
-        return $this->hasMany(Review::class, 'fk_resep');
+        return $this->hasMany(Review::class, 'resep_id');
     }
 
     // Relasi: Banyak user bisa memfavoritkan satu resep
     public function favoritByUsers()
     {
-        return $this->belongsToMany(User::class, 'favorits', 'fk_resep', 'fk_user');
+        return $this->belongsToMany(User::class, 'favorits', 'resep_id', 'user_id');
+    }
+
+    // Relasi: Satu resep dimiliki oleh satu user
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 }
