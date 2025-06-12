@@ -41,7 +41,7 @@ class Recipe extends Model
     // Relasi: Banyak user bisa memfavoritkan satu resep
     public function favoritByUsers()
     {
-        return $this->belongsToMany(User::class, 'favorits', 'resep_id', 'user_id');
+        return $this->belongsToMany(User::class, 'favorite', 'resep_id', 'user_id');
     }
 
     // Relasi: Satu resep dimiliki oleh satu user

@@ -53,7 +53,7 @@ class User extends Authenticatable
 
     public function community()
     {
-        return $this->belongsTo(Community::class);
+        return $this->belongsTo(Community::class, 'community_user');
     }
 
     public function recipes()
