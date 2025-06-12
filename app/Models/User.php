@@ -73,17 +73,17 @@ class User extends Authenticatable
 
     public function following()
     {
-        return $this->hasMany(Follower::class, 'id_from');
+        return $this->hasMany(Follower::class, 'to_user_id');
     }
 
     public function followers()
     {
-        return $this->hasMany(Follower::class, 'id_to');
+        return $this->hasMany(Follower::class, 'from_user_id');
     }
 
     public function communities()
     {
-        return $this->belongsToMany(Community::class, 'communities');
+        return $this->belongsToMany(Community::class, 'community_user');
     }
 
     public function notifications()
