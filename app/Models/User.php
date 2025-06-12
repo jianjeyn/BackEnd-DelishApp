@@ -20,7 +20,12 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'no_hp',
+        'tanggal_lahir',
         'password',
+        'gender',
+        'foto',
+        'community_id'
     ];
 
     /**
@@ -44,5 +49,45 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function community()
+    {
+        return $this->belongsTo(Community::class);
+    }
+
+    public function recipes()
+    {
+        return $this->hasMany(Recipe::class);
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
+
+    public function favorites()
+    {
+        return $this->hasMany(Favorite::class);
+    }
+
+    public function following()
+    {
+        return $this->hasMany(Follower::class, 'id_from');
+    }
+
+    public function followers()
+    {
+        return $this->hasMany(Follower::class, 'id_to');
+    }
+
+    public function communities()
+    {
+        return $this->belongsToMany(Community::class, 'communities');
+    }
+
+    public function notifications()
+    {
+        return $this->belongsToMany(Notification::class, 'usernotifications');
     }
 }
