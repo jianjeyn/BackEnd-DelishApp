@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('steps', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('resep_id')->constrained()->onDelete('cascade');
+            $table->integer('no');
+            $table->text('deskripsi');
             $table->timestamps();
         });
     }
