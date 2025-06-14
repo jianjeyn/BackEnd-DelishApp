@@ -20,11 +20,14 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'username',        // Added for edit profile
         'no_hp',
         'tanggal_lahir',
         'password',
         'gender',
         'foto',
+        'presentation',    // Added for bio
+        'add_link',       // Added for social link
         'community_id'
     ];
 
@@ -51,6 +54,15 @@ class User extends Authenticatable
         ];
     }
 
+    // Accessor for foto URL
+    public function getFotoUrlAttribute()
+    {
+        return $this->foto 
+            ? asset('storage/photos/' . $this->foto)
+            : asset('images/default-avatar.png');
+    }
+
+    // Existing relationships
     public function community()
     {
         return $this->belongsTo(Community::class, 'community_user');
@@ -66,21 +78,6 @@ class User extends Authenticatable
         return $this->hasMany(Review::class);
     }
 
-    public function favorites()
-    {
-        return $this->hasMany(Favorite::class);
-    }
-
-    public function following()
-    {
-        return $this->hasMany(Follower::class, 'to_user_id');
-    }
-
-    public function followers()
-    {
-        return $this->hasMany(Follower::class, 'from_user_id');
-    }
-
     public function communities()
     {
         return $this->belongsToMany(Community::class, 'community_user');
@@ -88,6 +85,26 @@ class User extends Authenticatable
 
     public function notifications()
     {
-        return $this->belongsToMany(Notification::class, 'usernotifications');
+        return $this->belongsToMany(Notification::class, 'notification_user');
+    }
+
+    // Fixed relationships for ProfileController
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'followers', 'followed_user_id', 'follower_user_id')
+                    ->withTimestamps();
+    }
+
+    public function following()
+    {
+        return $this->belongsToMany(User::class, 'followers', 'follower_user_id', 'followed_user_id')
+                    ->withPivot('notifications_enabled', 'is_blocked')
+                    ->withTimestamps();
+    }
+
+    public function favoriteRecipes()
+    {
+        return $this->belongsToMany(Recipe::class, 'favorites', 'user_id', 'recipe_id')
+                    ->withTimestamps();
     }
 }
