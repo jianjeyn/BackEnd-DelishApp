@@ -132,117 +132,117 @@ class ProfileController extends Controller
     /**
      * Manage notifications for followed user
      */
-    public function manageNotifications(Request $request, $userId)
-    {
-        $user = Auth::user();
-        $request->validate([
-            'notifications_enabled' => 'required|boolean'
-        ]);
+    // public function manageNotifications(Request $request, $userId)
+    // {
+    //     $user = Auth::user();
+    //     $request->validate([
+    //         'notifications_enabled' => 'required|boolean'
+    //     ]);
 
-        // Update pivot table
-        $user->following()->updateExistingPivot($userId, [
-            'notifications_enabled' => $request->notifications_enabled
-        ]);
+    //     // Update pivot table
+    //     $user->following()->updateExistingPivot($userId, [
+    //         'notifications_enabled' => $request->notifications_enabled
+    //     ]);
 
-        $action = $request->notifications_enabled ? 'enabled' : 'disabled';
+    //     $action = $request->notifications_enabled ? 'enabled' : 'disabled';
 
-        return response()->json([
-            'status' => 'success',
-            'message' => "Notifications {$action} successfully",
-            'data' => [
-                'user_id' => $userId,
-                'notifications_enabled' => $request->notifications_enabled
-            ]
-        ]);
-    }
+    //     return response()->json([
+    //         'status' => 'success',
+    //         'message' => "Notifications {$action} successfully",
+    //         'data' => [
+    //             'user_id' => $userId,
+    //             'notifications_enabled' => $request->notifications_enabled
+    //         ]
+    //     ]);
+    // }
 
     /**
      * Block a followed user
      */
-    public function blockUser($userId)
-    {
-        $user = Auth::user();
-        $targetUser = User::findOrFail($userId);
+    // public function blockUser($userId)
+    // {
+    //     $user = Auth::user();
+    //     $targetUser = User::findOrFail($userId);
 
-        // Update pivot table to mark as blocked
-        $user->following()->updateExistingPivot($userId, [
-            'is_blocked' => true
-        ]);
+    //     // Update pivot table to mark as blocked
+    //     $user->following()->updateExistingPivot($userId, [
+    //         'is_blocked' => true
+    //     ]);
 
-        return response()->json([
-            'status' => 'success',
-            'message' => 'User blocked successfully',
-            'data' => [
-                'blocked_user' => [
-                    'id' => $targetUser->id,
-                    'name' => $targetUser->name,
-                    'username' => $targetUser->username
-                ]
-            ]
-        ]);
-    }
+    //     return response()->json([
+    //         'status' => 'success',
+    //         'message' => 'User blocked successfully',
+    //         'data' => [
+    //             'blocked_user' => [
+    //                 'id' => $targetUser->id,
+    //                 'name' => $targetUser->name,
+    //                 'username' => $targetUser->username
+    //             ]
+    //         ]
+    //     ]);
+    // }
 
     /**
      * Unblock a user
      */
-    public function unblockUser($userId)
-    {
-        $user = Auth::user();
+    // public function unblockUser($userId)
+    // {
+    //     $user = Auth::user();
 
-        $user->following()->updateExistingPivot($userId, [
-            'is_blocked' => false
-        ]);
+    //     $user->following()->updateExistingPivot($userId, [
+    //         'is_blocked' => false
+    //     ]);
 
-        return response()->json([
-            'status' => 'success',
-            'message' => 'User unblocked successfully',
-            'data' => [
-                'user_id' => $userId
-            ]
-        ]);
-    }
+    //     return response()->json([
+    //         'status' => 'success',
+    //         'message' => 'User unblocked successfully',
+    //         'data' => [
+    //             'user_id' => $userId
+    //         ]
+    //     ]);
+    // }
 
     /**
      * Report a user
      */
-    public function reportUser(Request $request, $userId)
-    {
-        $user = Auth::user();
-        $targetUser = User::findOrFail($userId);
+    // public function reportUser(Request $request, $userId)
+    // {
+    //     $user = Auth::user();
+    //     $targetUser = User::findOrFail($userId);
         
-        $request->validate([
-            'reason' => 'required|string|max:500',
-            'category' => 'required|in:spam,harassment,inappropriate_content,fake_account,other'
-        ]);
+    //     $request->validate([
+    //         'reason' => 'required|string|max:500',
+    //         'category' => 'required|in:spam,harassment,inappropriate_content,fake_account,other'
+    //     ]);
 
-        // Create report record (you might need a reports table)
-        $report = [
-            'reporter_id' => $user->id,
-            'reported_user_id' => $userId,
-            'reason' => $request->reason,
-            'category' => $request->category,
-            'created_at' => now()
-        ];
+    //     // Create report record (you might need a reports table)
+    //     $report = [
+    //         'reporter_id' => $user->id,
+    //         'reported_user_id' => $userId,
+    //         'reason' => $request->reason,
+    //         'category' => $request->category,
+    //         'created_at' => now()
+    //     ];
 
-        // Save to reports table or handle as needed
-        // Report::create($report);
+    //     // Save to reports table or handle as needed
+    //     // Report::create($report);
 
-        return response()->json([
-            'status' => 'success',
-            'message' => 'User reported successfully',
-            'data' => [
-                'reported_user' => [
-                    'id' => $targetUser->id,
-                    'name' => $targetUser->name,
-                    'username' => $targetUser->username
-                ],
-                'report_details' => [
-                    'reason' => $request->reason,
-                    'category' => $request->category
-                ]
-            ]
-        ]);
-    }
+    //     return response()->json([
+    //         'status' => 'success',
+    //         'message' => 'User reported successfully',
+    //         'data' => [
+    //             'reported_user' => [
+    //                 'id' => $targetUser->id,
+    //                 'name' => $targetUser->name,
+    //                 'username' => $targetUser->username
+    //             ],
+    //             'report_details' => [
+    //                 'reason' => $request->reason,
+    //                 'category' => $request->category
+    //             ]
+    //         ]
+    //     ]);
+    // }
 
     /**
      * Update user profile
