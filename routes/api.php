@@ -81,10 +81,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
     // Endpoint untuk share data profil
     Route::get('/profile/share', [ProfileController::class, 'shareProfile']);
     // Aktifkan jika fitur ini digunakan
-    // Route::middleware('auth:sanctum')->patch('/profile/notifications/{userId}', [ProfileController::class, 'manageNotifications']);
-    // Route::middleware('auth:sanctum')->patch('/profile/block/{userId}', [ProfileController::class, 'blockUser']);
-    // Route::middleware('auth:sanctum')->patch('/profile/unblock/{userId}', [ProfileController::class, 'unblockUser']);
-    // Route::middleware('auth:sanctum')->post('/profile/report/{userId}', [ProfileController::class, 'reportUser']);
+    // Route::patch('/profile/notifications/{userId}', [ProfileController::class, 'manageNotifications']);
+    // Route::patch('/profile/block/{userId}', [ProfileController::class, 'blockUser']);
+    // Route::patch('/profile/unblock/{userId}', [ProfileController::class, 'unblockUser']);
+    // Route::post('/profile/report/{userId}', [ProfileController::class, 'reportUser']);
 
     // API endpoint untuk mencari followers dan following berdasarkan username & search
     Route::get('/profile/{username}/followers/search', [ProfileController::class, 'apiSearchFollowers']);
@@ -94,4 +94,3 @@ Route::middleware(['auth:sanctum'])->group(function () {
 // trending recipes
 Route::get('/trending', [TrendingController::class, 'index']);
 Route::get('/trending/{id}', [TrendingController::class, 'show']);
-
