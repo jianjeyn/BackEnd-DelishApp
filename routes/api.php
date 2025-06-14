@@ -58,6 +58,18 @@ Route::middleware(['auth:sanctum'])->group(function () {
     // communities
     Route::post('/communities/{id}/add-user', [CommunityController::class, 'addUser']);
     Route::post('/communities/{id}/remove-user', [CommunityController::class, 'removeUser']);
-    
+
     // User profile
+    Route::get('/profile', [ProfileController::class, 'index']);
+    Route::get('/profile/following', [ProfileController::class, 'following']);
+    
+    // User profile followers
+    Route::get('/profile/followers', [ProfileController::class, 'followers']);
+    // Route::patch('/users/{userId}/notifications', [UserController::class, 'manageNotifications']);
+    // Route::post('/users/{userId}/block', [UserController::class, 'blockUser']);
+    // Route::post('/users/{userId}/unblock', [UserController::class, 'unblockUser']);
+    // Route::post('/users/{userId}/report', [UserController::class, 'reportUser']);
+
+    
+
 });
