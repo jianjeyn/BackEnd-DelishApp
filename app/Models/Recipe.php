@@ -16,7 +16,6 @@ class Recipe extends Model
         'nama',
         'foto',
         'detail',
-        'ingredients',
         'durasi',
         'kategori',
         'jenis_hidangan',
@@ -48,5 +47,10 @@ class Recipe extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function ingredients()
+    {
+        return $this->hasMany(Ingredient::class);
     }
 }
