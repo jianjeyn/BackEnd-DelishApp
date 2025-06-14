@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 class TrendingController extends Controller
 {
     /**
-     * Display all trending recipes (Halaman 7.0-A)
+     * Display all trending recipes
      */
     public function index(Request $request)
     {
@@ -27,7 +27,7 @@ class TrendingController extends Controller
                         ->take($limit)
                         ->get();
 
-        // Most viewed today untuk bagian atas
+        // Most viewed today
         $mostViewedToday = Recipe::with(['user'])
                                 ->withAvg('reviews', 'bintang')
                                 ->whereDate('created_at', today())
@@ -46,7 +46,7 @@ class TrendingController extends Controller
     }
 
     /**
-     * Get specific trending recipe detail (Halaman 7.1-B)
+     * Get specific trending recipe detail by ID
      */
     public function show($id)
     {
@@ -72,62 +72,62 @@ class TrendingController extends Controller
     /**
      * Get trending by category
      */
-    public function byCategory($kategori)
-    {
-        $trending = Recipe::with(['user'])
-                        ->where('kategori', $kategori)
-                        ->withAvg('reviews', 'bintang')
-                        ->orderByDesc('reviews_avg_bintang')
-                        ->take(10)
-                        ->get();
+    // public function byCategory($kategori)
+    // {
+    //     $trending = Recipe::with(['user'])
+    //                     ->where('kategori', $kategori)
+    //                     ->withAvg('reviews', 'bintang')
+    //                     ->orderByDesc('reviews_avg_bintang')
+    //                     ->take(10)
+    //                     ->get();
 
-        return response()->json([
-            'status' => 'success',
-            'message' => "Trending {$kategori} recipes retrieved successfully",
-            'data' => $trending,
-            'category' => $kategori
-        ]);
-    }
+    //     return response()->json([
+    //         'status' => 'success',
+    //         'message' => "Trending {$kategori} recipes retrieved successfully",
+    //         'data' => $trending,
+    //         'category' => $kategori
+    //     ]);
+    // }
 
     /**
      * Get most viewed today (untuk section khusus)
      */
-    public function mostViewedToday()
-    {
-        $recipe = Recipe::with(['user'])
-                       ->withAvg('reviews', 'bintang')
-                       ->whereDate('created_at', today())
-                       ->orderByDesc('reviews_avg_bintang')
-                       ->first();
+    // public function mostViewedToday()
+    // {
+    //     $recipe = Recipe::with(['user'])
+    //                    ->withAvg('reviews', 'bintang')
+    //                    ->whereDate('created_at', today())
+    //                    ->orderByDesc('reviews_avg_bintang')
+    //                    ->first();
 
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Most viewed recipe today retrieved successfully',
-            'data' => $recipe
-        ]);
-    }
+    //     return response()->json([
+    //         'status' => 'success',
+    //         'message' => 'Most viewed recipe today retrieved successfully',
+    //         'data' => $recipe
+    //     ]);
+    // }
 
     /**
      * Search trending recipes
      */
-    public function search(Request $request)
-    {
-        $query = $request->query('q');
+    // public function search(Request $request)
+    // {
+    //     $query = $request->query('q');
         
-        $results = Recipe::with(['user'])
-                        ->withAvg('reviews', 'bintang')
-                        ->where('nama', 'LIKE', "%{$query}%")
-                        ->orWhere('detail', 'LIKE', "%{$query}%")
-                        ->orderByDesc('reviews_avg_bintang')
-                        ->take(10)
-                        ->get();
+    //     $results = Recipe::with(['user'])
+    //                     ->withAvg('reviews', 'bintang')
+    //                     ->where('nama', 'LIKE', "%{$query}%")
+    //                     ->orWhere('detail', 'LIKE', "%{$query}%")
+    //                     ->orderByDesc('reviews_avg_bintang')
+    //                     ->take(10)
+    //                     ->get();
 
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Search results retrieved successfully',
-            'data' => $results,
-            'query' => $query,
-            'total' => $results->count()
-        ]);
-    }
+    //     return response()->json([
+    //         'status' => 'success',
+    //         'message' => 'Search results retrieved successfully',
+    //         'data' => $results,
+    //         'query' => $query,
+    //         'total' => $results->count()
+    //     ]);
+    // }
 }
