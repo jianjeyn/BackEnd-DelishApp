@@ -15,25 +15,27 @@ class CommunityController extends Controller
         return response()->json($communities);
     }
 
-    // Simpan komunitas baru
-    public function store(Request $request)
-    {
-        $request->validate([
-            'nama' => 'required|string|max:255'
-        ]);
-
-        $community = Community::create([
-            'nama' => $request->nama
-        ]);
-
-        return response()->json(['message' => 'Komunitas berhasil dibuat', 'data' => $community], 201);
-    }
-
     // Tampilkan detail komunitas dan daftar user-nya
     public function show($id)
     {
-        $community = Community::with('users')->findOrFail($id);
-        return response()->json($community);
+        $community = Community::with(['users.recipes'])->findOrFail($id);
+
+        // Ambil semua resep dari user yang mengikuti komunitas
+        $recipes = $community->users->flatMap(function ($user) {
+            return $user->recipes;
+        });
+
+        return response()->json([
+            'community' => $community->only(['id', 'nama']),
+            'users' => $community->users->map(function ($user) {
+                return [
+                    'id' => $user->id,
+                    'name' => $user->name,
+                    'email' => $user->email
+                ];
+            }),
+            'recipes' => $recipes
+        ]);
     }
 
     // Tambahkan user ke komunitas
@@ -60,14 +62,5 @@ class CommunityController extends Controller
         $community->users()->detach($request->user_id);
 
         return response()->json(['message' => 'User berhasil dihapus dari komunitas']);
-    }
-
-    // Hapus komunitas
-    public function destroy($id)
-    {
-        $community = Community::findOrFail($id);
-        $community->delete();
-
-        return response()->json(['message' => 'Komunitas berhasil dihapus']);
     }
 }
