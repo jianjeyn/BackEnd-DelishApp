@@ -70,6 +70,12 @@ Route::middleware(['auth:sanctum'])->group(function () {
     // Route::post('/users/{userId}/unblock', [UserController::class, 'unblockUser']);
     // Route::post('/users/{userId}/report', [UserController::class, 'reportUser']);
 
-    
-
+    // notifications to user
+    Route::get('/notifications', [NotificationController::class, 'index']);
+    Route::patch('/notifications/{id}/read', [NotificationController::class, 'markAsRead']);
 });
+
+// trending recipes
+Route::get('/trending', [TrendingController::class, 'index']);
+Route::get('/trending/{id}', [TrendingController::class, 'show']);
+

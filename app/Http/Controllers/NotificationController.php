@@ -21,7 +21,6 @@ class NotificationController extends Controller
         return response()->json($notifications);
     }
 
-    // Kirim notifikasi ke semua followers dari user pengirim
     public function sendToFollowers(User $sender, $judul, $deskripsi)
     {
         $notification = Notification::create([
@@ -36,7 +35,7 @@ class NotificationController extends Controller
             ]);
         }
 
-        return response()->json(['message' => 'Notifikasi dikirim ke followers.']);
+        return true; // tidak perlu response JSON karena dipanggil internal
     }
 
     // Tandai satu notifikasi sebagai dibaca

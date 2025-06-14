@@ -56,6 +56,13 @@ class RecipeController extends Controller
 
         $recipe = Recipe::create($validated);
 
+        // Kirim notifikasi ke followers
+        $user = Auth::user();
+        $judulNotif = "{$user->name} mengunggah resep baru!";
+        $deskripsiNotif = "Lihat resep: {$recipe->nama}";
+
+        app(NotificationController::class)->sendToFollowers($user, $judulNotif, $deskripsiNotif);
+
         return response()->json([
             'message' => 'Resep berhasil ditambahkan',
             'data' => $recipe
