@@ -245,7 +245,74 @@ class DatabaseSeeder extends Seeder
         ]
     ];
 
+    private $community = [
+        [
+            'name' => 'Komunitas Masak Sehat',
+        ],
+        [
+            'name' => 'Komunitas Pecinta Makanan Pedas',
+        ],
+        [
+            'name' => 'Komunitas Vegetarian',
+        ],
+        [
+            'name' => 'Komunitas Makanan Tradisional',
+        ],
+        [
+            'name' => 'Komunitas Kue dan Roti',
+        ]
+    ];
 
+    private $communityUsers = [
+        [
+            "community_id" => 1,
+            "user_id" => 1
+        ],
+        [
+            "community_id" => 1,
+            "user_id" => 2
+        ],
+        [
+            "community_id" => 1,
+            "user_id" => 3
+        ],
+        [
+            "community_id" => 2,
+            "user_id" => 1
+        ],
+        [
+            "community_id" => 2,
+            "user_id" => 4
+        ],
+        [
+            "community_id" => 3,
+            "user_id" => 2
+        ],
+        [
+            "community_id" => 3,
+            "user_id" => 3
+        ],
+        [
+            "community_id" => 3,
+            "user_id" => 5
+        ],
+        [
+            "community_id" => 4,
+            "user_id" => 1
+        ],
+        [
+            "community_id" => 4,
+            "user_id" => 4
+        ],
+        [
+            "community_id" => 5,
+            "user_id" => 2
+        ],
+        [
+            "community_id" => 5,
+            "user_id" => 5
+        ]   
+    ];
 
     public function run(): void
     {
