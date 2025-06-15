@@ -26,8 +26,6 @@ class User extends Authenticatable
         'password',
         'gender',
         'foto',
-        'presentation',    // Added for bio
-        'add_link',       // Added for social link
         'community_id'
     ];
 
