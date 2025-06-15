@@ -314,6 +314,60 @@ class DatabaseSeeder extends Seeder
         ]   
     ];
 
+    private $favorites = [
+        [
+            'user_id' => 1,
+            'recipe_id' => 1
+        ],
+        [
+            'user_id' => 2,
+            'recipe_id' => 2
+        ],
+        [
+            'user_id' => 3,
+            'recipe_id' => 3
+        ],
+        [
+            'user_id' => 4,
+            'recipe_id' => 4
+        ],
+        [
+            'user_id' => 5,
+            'recipe_id' => 5
+        ]
+    ];
+    
+    private $followers = [
+        [
+            'from_user_id' => 1,
+            'to_user_id' => 2,
+        ],
+        [
+            'from_user_id' => 1,
+            'to_user_id' => 3,
+        ],
+        [
+            'from_user_id' => 2,
+            'to_user_id' => 1,
+        ],
+        [
+            'from_user_id' => 2,
+            'to_user_id' => 4,
+        ],
+        [
+            'from_user_id' => 3,
+            'to_user_id' => 1,
+        ],
+        [
+            'from_user_id' => 4,
+            'to_user_id' => 2,
+        ],
+        [
+            'from_user_id' => 5,
+            'to_user_id' => 1,
+        ]
+    ];
+
     public function run(): void
     {
         // User::factory(10)->create();
