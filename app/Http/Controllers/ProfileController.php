@@ -290,7 +290,7 @@ class ProfileController extends Controller
                     'username' => $user->username,
                     'presentation' => $user->presentation,
                     'add_link' => $user->add_link,
-                    'foto' => $user->foto ? asset('storage/fotos/' . $user->foto) : null
+                    'foto' => $user->foto ? asset('storage/photos/' . $user->foto) : null
                 ]
             ]
         ]);
@@ -344,10 +344,13 @@ class ProfileController extends Controller
 
         return response()->json([
             'status' => 'success',
-            'message' => 'Successfully followed user',
+            'message' => 'User followed successfully',
             'data' => [
-                'followed_user' => $targetUser,
-                'following_count' => $user->following()->count()
+                'followed_user' => [
+                    'id' => $targetUser->id,
+                    'name' => $targetUser->name,
+                    'username' => $targetUser->username,
+                ]
             ]
         ]);
     }
@@ -486,6 +489,50 @@ class ProfileController extends Controller
             'status' => 'success',
             'message' => $message,
             'favorited' => $favorited
+        ]);
+    }
+
+    // API: Search Followers
+    public function apiSearchFollowers(Request $request, $username)
+    {
+        $user = User::where('username', $username)->firstOrFail();
+        $search = $request->input('search');
+
+        $followers = $user->followers()
+            ->when($search, function ($query, $search) {
+                $query->where(function ($q) use ($search) {
+                    $q->where('name', 'like', "%{$search}%")
+                    ->orWhere('username', 'like', "%{$search}%");
+                });
+            })
+            ->paginate(10);
+
+        return response()->json([
+            'user' => $user->only(['id', 'name', 'username']),
+            'followers' => $followers,
+            'search' => $search,
+        ]);
+    }
+
+    // API: Search Following
+    public function apiSearchFollowing(Request $request, $username)
+    {
+        $user = User::where('username', $username)->firstOrFail();
+        $search = $request->input('search');
+
+        $following = $user->following()
+            ->when($search, function ($query, $search) {
+                $query->where(function ($q) use ($search) {
+                    $q->where('name', 'like', "%{$search}%")
+                    ->orWhere('username', 'like', "%{$search}%");
+                });
+            })
+            ->paginate(10);
+
+        return response()->json([
+            'user' => $user->only(['id', 'name', 'username']),
+            'following' => $following,
+            'search' => $search,
         ]);
     }
 }

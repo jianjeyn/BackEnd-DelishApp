@@ -62,14 +62,35 @@ Route::middleware(['auth:sanctum'])->group(function () {
     // User profile
     Route::get('/profile', [ProfileController::class, 'index']);
     Route::get('/profile/following', [ProfileController::class, 'following']);
-    
-    // User profile followers
+
+    // notifications to user
+    Route::get('/notifications', [NotificationController::class, 'index']);
+    Route::patch('/notifications/{id}/read', [NotificationController::class, 'markAsRead']);
+
+    //user profile
+    // Endpoint untuk menampilkan profil dan statistik pengguna
+    Route::get('/profile', [ProfileController::class, 'index']);
+    // Endpoint untuk memperbarui profil
+    Route::put('/profile', [ProfileController::class, 'update']);
+    // Endpoint untuk menampilkan daftar followers
     Route::get('/profile/followers', [ProfileController::class, 'followers']);
-    // Route::patch('/users/{userId}/notifications', [UserController::class, 'manageNotifications']);
-    // Route::post('/users/{userId}/block', [UserController::class, 'blockUser']);
-    // Route::post('/users/{userId}/unblock', [UserController::class, 'unblockUser']);
-    // Route::post('/users/{userId}/report', [UserController::class, 'reportUser']);
+    // Endpoint untuk menampilkan daftar following
+    Route::get('/profile/following', [ProfileController::class, 'following']);
+    // Endpoint untuk follow user lain
+    Route::post('/profile/follow/{userId}', [ProfileController::class, 'followUser']);
+    // Endpoint untuk share data profil
+    Route::get('/profile/share', [ProfileController::class, 'shareProfile']);
+    // Aktifkan jika fitur ini digunakan
+    // Route::patch('/profile/notifications/{userId}', [ProfileController::class, 'manageNotifications']);
+    // Route::patch('/profile/block/{userId}', [ProfileController::class, 'blockUser']);
+    // Route::patch('/profile/unblock/{userId}', [ProfileController::class, 'unblockUser']);
+    // Route::post('/profile/report/{userId}', [ProfileController::class, 'reportUser']);
 
-    
-
+    // API endpoint untuk mencari followers dan following berdasarkan username & search
+    Route::get('/profile/{username}/followers/search', [ProfileController::class, 'apiSearchFollowers']);
+    Route::get('/profile/{username}/following/search', [ProfileController::class, 'apiSearchFollowing']);
 });
+
+// trending recipes
+Route::get('/trending', [TrendingController::class, 'index']);
+Route::get('/trending/{id}', [TrendingController::class, 'show']);

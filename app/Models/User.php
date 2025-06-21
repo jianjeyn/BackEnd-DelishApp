@@ -26,8 +26,6 @@ class User extends Authenticatable
         'password',
         'gender',
         'foto',
-        'presentation',    // Added for bio
-        'add_link',       // Added for social link
         'community_id'
     ];
 
@@ -91,13 +89,13 @@ class User extends Authenticatable
     // Fixed relationships for ProfileController
     public function followers()
     {
-        return $this->belongsToMany(User::class, 'followers', 'followed_user_id', 'follower_user_id')
+        return $this->belongsToMany(User::class, 'followers', 'from_user_id', 'to_user_id')
                     ->withTimestamps();
     }
 
     public function following()
     {
-        return $this->belongsToMany(User::class, 'followers', 'follower_user_id', 'followed_user_id')
+        return $this->belongsToMany(User::class, 'followers', 'to_user_id', 'from_user_id')
                     ->withPivot('notifications_enabled', 'is_blocked')
                     ->withTimestamps();
     }
