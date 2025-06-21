@@ -3,6 +3,17 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Models\Community;
+use App\Models\CommunityUser;
+use App\Models\Favorite;
+use App\Models\Follower;
+use App\Models\Ingredient;
+use App\Models\Notification;
+use App\Models\NotificationUser;
+use App\Models\Recipe;
+use App\Models\Review;
+use App\Models\Step;
+
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -14,69 +25,69 @@ class DatabaseSeeder extends Seeder
     private $users = [
         [
             'name' => 'Alifa Salsabila',
-            'email' => 'alifa@example.com',
+            'email' => 'alifa1@example.com',
             'username' => 'alifabee',
             'no_hp' => '081234567890',
             'tanggal_lahir' => '2002-05-15',
             'password' => '$2a$12$eyAmZQThBEOz/BBBn/H18O8alngb/XXBdppaigsHL3HhMplyRXx3m', // nanti diisi hash di seeder
-            'gender' => 'female',
+            'gender' => 'P',
             'foto' => 'avatars/alifa.jpg',
-            'community_id' => 1,
+            // 'community_id' => 1,
         ],
         [
             'name' => 'Klara Oliviera',
-            'email' => 'klara@example.com',
+            'email' => 'klara1@example.com',
             'username' => 'klarakeren',
             'no_hp' => '081298765432',
             'tanggal_lahir' => '2001-11-25',
             'password' => '$2a$12$qylmw4WQ9ZatnqB4AMq7X.MmVe3xzpOhe8f2V/QaQ63YDybg1sCCi',
-            'gender' => 'female',
+            'gender' => 'P',
             'foto' => 'avatars/klara.jpg',
-            'community_id' => 2,
+            // 'community_id' => 2,
         ],
         [
             'name' => 'Naeya Adeani',
-            'email' => 'naeya@example.com',
+            'email' => 'naeya1@example.com',
             'username' => 'notnaex',
             'no_hp' => '082112345678',
             'tanggal_lahir' => '2003-02-10',
             'password' => '$2a$12$qHZ9801mAm3YGnntPCGemeofmeOgGwohvRVhV1FbM1gpzH18HgdWm',
-            'gender' => 'female',
+            'gender' => 'P',
             'foto' => 'avatars/naeya.jpg',
-            'community_id' => 1,
+            // 'community_id' => 1,
         ],
         [
             'name' => 'Jihan Aqilah',
-            'email' => 'jihan@example.com',
+            'email' => 'jihan1@example.com',
             'username' => 'jianjeyn',
             'no_hp' => '082234567890',
             'tanggal_lahir' => '2004-02-10',
             'password' => '$2a$12$5UpKopDFqU35RCMFoPNTueszM5V.HEFi8iiBJPH52k0Ii/abhtCFe',
-            'gender' => 'female',
+            'gender' => 'P',
             'foto' => 'avatars/jihan.jpg',
-            'community_id' => 1,
+            // 'community_id' => 1,
         ],
         [
             'name' => 'Ririn Marcelina',
-            'email' => 'ririn@example',
+            'email' => 'ririn1@example.com',
             'username' => 'marchrin',
             'no_hp' => '082345678901',
             'tanggal_lahir' => '2002-03-15',
             'password' => '$2a$12$ZZkLk9Lnnzt.nL8UvFOuE.3BxzU5dapalpx3lYbZaTNWTNKK1Hbzy',
-            'gender' => 'female',
+            'gender' => 'P',
             'foto' => 'avatars/ririn.jpg',
-            'community_id' => 1,
+            // 'community_id' => 1,
         ],
         [
             'name' => 'Yahyo Abdulozoda',
-            'email' => 'yahyo@example.com',
+            'email' => 'yahyo1@example.com',
             'username' => 'yahyocoolguy',
             'no_hp' => '081234567890',
             'tanggal_lahir' => '2000-01-01',
             'password' => '$2a$12$YbO2u6Cgo0dSXTP.Dez1tOHzrm00OgaM4EdQ3f4GLVt1oLtwI/.86',
-            'gender' => 'male',
+            'gender' => 'L',
             'foto' => 'avatars/yahyo.jpg',
-            'community_id' => 1,
+            // 'community_id' => 1,
         ]
     ];
 
@@ -247,19 +258,19 @@ class DatabaseSeeder extends Seeder
 
     private $community = [
         [
-            'name' => 'Komunitas Masak Sehat',
+            'nama' => 'Komunitas Masak Sehat',
         ],
         [
-            'name' => 'Komunitas Pecinta Makanan Pedas',
+            'nama' => 'Komunitas Pecinta Makanan Pedas',
         ],
         [
-            'name' => 'Komunitas Vegetarian',
+            'nama' => 'Komunitas Vegetarian',
         ],
         [
-            'name' => 'Komunitas Makanan Tradisional',
+            'nama' => 'Komunitas Makanan Tradisional',
         ],
         [
-            'name' => 'Komunitas Kue dan Roti',
+            'nama' => 'Komunitas Kue dan Roti',
         ]
     ];
 
@@ -370,11 +381,55 @@ class DatabaseSeeder extends Seeder
 
     public function run(): void
     {
-        // User::factory(10)->create();
+        // Create communities first (they are referenced by users)
+        foreach ($this->community as $item) {
+            Community::create($item);
+        }
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        // Create users
+        foreach ($this->users as $item) {
+            User::create($item);
+        }
+
+        // Create recipes
+        foreach ($this->Recipes as $item) {
+            Recipe::create($item);
+        }
+
+        // Create ingredients
+        foreach ($this->Ingredients as $item) {
+            Ingredient::create($item);
+        }
+
+        // Create steps
+        foreach ($this->Steps as $item) {
+            Step::create($item);
+        }
+
+        // Create reviews
+        foreach ($this->reviews as $item) {
+            Review::create($item);
+        }
+
+        // Create community users (pivot table)
+        foreach ($this->communityUsers as $item) {
+            CommunityUser::create($item);
+        }
+
+        // Create favorites
+        foreach ($this->favorites as $item) {
+            Favorite::create($item);
+        }
+
+        // Create followers
+        foreach ($this->followers as $item) {
+            Follower::create($item);
+        }
+
+        // // Create test user (optional - you can remove this if not needed)
+        // User::factory()->create([
+        //     'name' => 'Test User',
+        //     'email' => 'test@example.com',
+        // ]);
     }
 }

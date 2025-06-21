@@ -17,8 +17,8 @@ class Step extends Model
     ];
 
     // Relasi ke model Resep
-    public function resep()
+    public function recipe()
     {
-        return $this->belongsTo(Resep::class);
+        return $this->belongsTo(Recipe::class);
     }
 }
