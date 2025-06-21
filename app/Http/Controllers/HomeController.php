@@ -3,18 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\Recipe;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
-        $kategori = $request->query('kategori');
+        $categories = Recipe::select('kategori')
+                        ->distinct()
+                        ->pluck('kategori');
 
-        $filteredRecipes = Recipe::when($kategori, function ($query, $kategori) {
-            return $query->where('kategori', $kategori);
-        })->get();
+        $filteredRecipes = Recipe::all();
 
         $trending = Recipe::withAvg('reviews', 'bintang')
                         ->orderByDesc('reviews_avg_bintang')
@@ -26,6 +25,7 @@ class HomeController extends Controller
         $recentlyAdded = Recipe::orderBy('created_at', 'desc')->take(5)->get();
 
         return response()->json([
+            'categories' => $categories,
             'filtered' => $filteredRecipes,
             'trending' => $trending,
             'your_recipes' => $yourRecipes,
