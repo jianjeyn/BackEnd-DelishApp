@@ -9,16 +9,30 @@ use Illuminate\Support\Facades\Auth;
 class ReviewController extends Controller
 {
     // Ambil semua review untuk resep tertentu
-    public function index(Request $request)
-    {
-        $resep_id = $request->query('resep_id');
+    // public function index(Request $request)
+    // {
+    //     $resep_id = $request->query('resep_id');
 
+    //     $reviews = Review::with('user')
+    //                 ->where('resep_id', $resep_id)
+    //                 ->latest()
+    //                 ->get();
+
+    //     return response()->json([
+    //         'reviews' => $reviews
+    //     ]);
+    // }
+
+    public function index($resep_id)
+    {
         $reviews = Review::with('user')
                     ->where('resep_id', $resep_id)
                     ->latest()
                     ->get();
 
-        return response()->json($reviews);
+        return response()->json([
+            'reviews' => $reviews
+        ]);
     }
 
     // Simpan review baru
