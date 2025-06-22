@@ -19,6 +19,7 @@ class HomeController extends Controller
                         ->orderByDesc('reviews_avg_bintang')
                         ->take(5)
                         ->get();
+        //$userId = $request->header('X-User-ID') ?? Auth::id() ?? 1;
 
         $yourRecipes = Recipe::where('user_id', Auth::id())->take(5)->get();
 
