@@ -35,7 +35,7 @@ Route::post('/register', [UserController::class, 'register']);
 Route::get('/home', [HomeController::class, 'index']);
 
 // search
-Route::get('/search', [SearchController::class, 'search-page']);
+Route::get('/search', [SearchController::class, 'searchPage']);
 
 // recipes
 Route::get('/recipes', [RecipeController::class, 'index']);

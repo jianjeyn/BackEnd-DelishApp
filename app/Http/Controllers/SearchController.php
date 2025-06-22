@@ -17,6 +17,7 @@ class SearchController extends Controller
         return response()->json([
             'trending' => $this->getTrendingRecipes(),
             'recommended' => $this->recommendedRecipes($user),
+            'recently_added' => $this->getRecentlyAddedRecipes(),
             'your_recipes' => Recipe::where('user_id', $user?->id)->get(),
             'results' => $this->getSearchResults($request),
         ]);
@@ -37,7 +38,11 @@ class SearchController extends Controller
     public function recommendedRecipes(?User $user)
     {
         if (!$user) {
-            return Recipe::inRandomOrder()->limit(5)->get();
+            return Recipe::withCount('reviews')
+                ->withAvg('reviews', 'bintang')
+                ->inRandomOrder()
+                ->limit(5)
+                ->get();
         }
 
         $favKategori = Recipe::whereHas('favoritByUsers', function ($q) use ($user) {
@@ -50,12 +55,28 @@ class SearchController extends Controller
             ->first();
 
         if (!$favKategori) {
-            return Recipe::inRandomOrder()->limit(5)->get();
+            return Recipe::withCount('reviews')
+                ->withAvg('reviews', 'bintang')
+                ->inRandomOrder()
+                ->limit(5)
+                ->get();
         }
 
         return Recipe::where('kategori', $favKategori)
+            ->withCount('reviews')
+            ->withAvg('reviews', 'bintang')
             ->inRandomOrder()
             ->limit(5)
+            ->get();
+    }
+
+    // Recently Added: recipe paling baru diupload dengan review count dan rating
+    public function getRecentlyAddedRecipes()
+    {
+        return Recipe::withCount('reviews')
+            ->withAvg('reviews', 'bintang')
+            ->latest('created_at')
+            ->limit(10)
             ->get();
     }
 
