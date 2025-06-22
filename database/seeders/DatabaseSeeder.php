@@ -185,30 +185,38 @@ class DatabaseSeeder extends Seeder
 
     private $Steps = [
         // Nasi Goreng Telur (resep_id = 1)
-        [ "resep_id" => 1, "no" => 1, "deskripsi" => "Panaskan minyak dan tumis bawang merah dan bawang putih hingga harum." ],
-        [ "resep_id" => 1, "no" => 2, "deskripsi" => "Masukkan telur, orak-arik hingga matang." ],
-        [ "resep_id" => 1, "no" => 3, "deskripsi" => "Tambahkan nasi, aduk rata." ],
-        [ "resep_id" => 1, "no" => 4, "deskripsi" => "Tuangkan kecap manis, aduk rata, dan masak hingga matang." ],
+        [ "resep_id" => 1, "no" => 1, "deskripsi" => "Panaskan sedikit minyak di wajan, lalu tumis bawang merah dan bawang putih yang telah diiris tipis hingga harum dan agak kecokelatan." ],
+        [ "resep_id" => 1, "no" => 2, "deskripsi" => "Masukkan telur ke dalam wajan, kemudian orak-arik hingga matang dan tercampur merata dengan bumbu." ],
+        [ "resep_id" => 1, "no" => 3, "deskripsi" => "Tambahkan nasi putih dingin ke dalam wajan, lalu aduk secara merata dengan telur dan bumbu yang sudah ditumis." ],
+        [ "resep_id" => 1, "no" => 4, "deskripsi" => "Tuangkan kecap manis, garam, dan merica secukupnya, lalu aduk dan masak hingga nasi goreng terasa kering dan matang merata." ],
+        [ "resep_id" => 1, "no" => 5, "deskripsi" => "Angkat dan sajikan selagi hangat dengan tambahan kerupuk dan irisan mentimun sebagai pelengkap." ],
 
         // Sayur Bening Bayam (resep_id = 2)
-        [ "resep_id" => 2, "no" => 1, "deskripsi" => "Didihkan air dalam panci." ],
-        [ "resep_id" => 2, "no" => 2, "deskripsi" => "Masukkan bawang putih dan wortel, rebus hingga setengah matang." ],
-        [ "resep_id" => 2, "no" => 3, "deskripsi" => "Tambahkan bayam, masak sebentar hingga layu." ],
-        [ "resep_id" => 2, "no" => 4, "deskripsi" => "Tambahkan garam, aduk, dan sajikan." ],
+        [ "resep_id" => 2, "no" => 1, "deskripsi" => "Didihkan air dalam panci bersih untuk digunakan sebagai kuah sayur bening." ],
+        [ "resep_id" => 2, "no" => 2, "deskripsi" => "Setelah mendidih, masukkan bawang putih yang telah digeprek dan irisan wortel, lalu rebus hingga wortel mulai lunak." ],
+        [ "resep_id" => 2, "no" => 3, "deskripsi" => "Masukkan bayam yang telah dicuci bersih bersama jagung manis pipil (jika ada), dan masak hingga bayam layu." ],
+        [ "resep_id" => 2, "no" => 4, "deskripsi" => "Tambahkan garam dan sedikit gula pasir untuk menyeimbangkan rasa, lalu koreksi rasa sebelum mematikan api." ],
+        [ "resep_id" => 2, "no" => 5, "deskripsi" => "Tuang ke dalam mangkuk saji dan sajikan segera selagi hangat agar kesegaran bayam tetap terjaga." ],
 
         // Tempe Goreng Tepung (resep_id = 3)
-        [ "resep_id" => 3, "no" => 1, "deskripsi" => "Iris tempe sesuai selera." ],
-        [ "resep_id" => 3, "no" => 2, "deskripsi" => "Campur tepung, bawang putih halus, dan garam dengan sedikit air hingga menjadi adonan." ],
-        [ "resep_id" => 3, "no" => 3, "deskripsi" => "Celupkan tempe ke adonan, lalu goreng hingga keemasan." ],
+        [ "resep_id" => 3, "no" => 1, "deskripsi" => "Potong tempe tipis-tipis sesuai selera, kemudian rendam sebentar dalam air garam agar terasa lebih gurih." ],
+        [ "resep_id" => 3, "no" => 2, "deskripsi" => "Siapkan adonan tepung dengan mencampurkan tepung terigu, bawang putih halus, garam, ketumbar bubuk, dan air secukupnya hingga kental." ],
+        [ "resep_id" => 3, "no" => 3, "deskripsi" => "Celupkan potongan tempe ke dalam adonan tepung hingga seluruh permukaannya tertutup rata." ],
+        [ "resep_id" => 3, "no" => 4, "deskripsi" => "Panaskan minyak dalam jumlah cukup banyak, lalu goreng tempe yang sudah dilapisi tepung hingga kuning keemasan dan garing." ],
+        [ "resep_id" => 3, "no" => 5, "deskripsi" => "Angkat tempe goreng dan tiriskan minyaknya di atas tisu dapur, lalu sajikan hangat dengan sambal atau cabai rawit." ],
 
         // Tumis Kangkung (resep_id = 4)
-        [ "resep_id" => 4, "no" => 1, "deskripsi" => "Tumis bawang putih dan cabe hingga harum." ],
-        [ "resep_id" => 4, "no" => 2, "deskripsi" => "Tambahkan terasi, aduk rata." ],
-        [ "resep_id" => 4, "no" => 3, "deskripsi" => "Masukkan kangkung, aduk cepat dan masak hingga layu." ],
+        [ "resep_id" => 4, "no" => 1, "deskripsi" => "Panaskan minyak goreng dalam wajan, lalu tumis bawang putih dan cabai merah besar yang telah diiris hingga harum." ],
+        [ "resep_id" => 4, "no" => 2, "deskripsi" => "Tambahkan terasi yang sudah dibakar ke dalam tumisan, lalu aduk rata hingga terasi larut bersama bumbu." ],
+        [ "resep_id" => 4, "no" => 3, "deskripsi" => "Masukkan kangkung yang telah dicuci bersih, aduk cepat agar semua bagian terkena bumbu dan tidak layu berlebihan." ],
+        [ "resep_id" => 4, "no" => 4, "deskripsi" => "Tambahkan sedikit air, garam, dan gula pasir untuk memperkaya rasa, lalu masak sebentar hingga bumbu meresap." ],
+        [ "resep_id" => 4, "no" => 5, "deskripsi" => "Angkat dan sajikan selagi panas sebagai pendamping nasi hangat." ],
 
         // Telur Dadar (resep_id = 5)
-        [ "resep_id" => 5, "no" => 1, "deskripsi" => "Kocok telur bersama daun bawang, bawang merah, dan garam." ],
-        [ "resep_id" => 5, "no" => 2, "deskripsi" => "Panaskan minyak, tuang adonan telur, dan goreng hingga matang kedua sisi." ]
+        [ "resep_id" => 5, "no" => 1, "deskripsi" => "Kocok telur dalam mangkuk bersama irisan daun bawang, bawang merah, cabai (jika suka pedas), dan garam hingga berbusa." ],
+        [ "resep_id" => 5, "no" => 2, "deskripsi" => "Panaskan sedikit minyak dalam wajan anti lengket, lalu tuangkan adonan telur secara merata ke permukaan wajan." ],
+        [ "resep_id" => 5, "no" => 3, "deskripsi" => "Masak dengan api kecil hingga bagian bawah matang kecokelatan, lalu balik dan masak sisi satunya hingga matang." ],
+        [ "resep_id" => 5, "no" => 4, "deskripsi" => "Angkat telur dadar dan potong sesuai selera sebelum disajikan bersama nasi hangat dan sambal favorit." ],
     ];
 
     private $reviews = [

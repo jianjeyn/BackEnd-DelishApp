@@ -26,8 +26,10 @@ class RecipeController extends Controller
     // 2. Tampilkan detail satu resep
     public function show($id)
     {
-        $recipe = Recipe::with(['steps', 'reviews.user', 'user'])
+        $recipe = Recipe::with(['steps', 'reviews.user', 'user', 'ingredients'])
                     ->withAvg('reviews', 'bintang')
+                    ->withCount('reviews')
+                    ->withCount('steps')
                     ->findOrFail($id);
 
         return response()->json($recipe);
